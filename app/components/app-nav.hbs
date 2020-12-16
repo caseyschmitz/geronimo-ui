@@ -1,0 +1,33 @@
+<PaperToolbar>
+  <PaperToolbarTools>
+    {{#if auth.user}}
+    <PaperMenu as |menu|>
+      <menu.trigger>
+        <PaperButton @iconButton={{true}}>
+          {{paper-icon "menu"}}
+        </PaperButton>
+      </menu.trigger>
+      <menu.content as |content|>
+        <content.menu-item @onClick={{action "goHome"}}>Home</content.menu-item>
+        <content.menu-item @onClick={{action "goDashboard"}}>Dashboard</content.menu-item>
+      </menu.content>
+    </PaperMenu>
+    {{/if}}
+    <PaperButton @onClick={{action "goHome" }}>
+      Geronimo
+    </PaperButton>
+    <span class="flex"></span>
+    {{#if auth.user}}
+      <PaperButton @iconButton={{true}}>
+        {{paper-icon "person"}}
+      </PaperButton>
+      <PaperButton @onClick={{action "logout"}}>
+        Log Out
+      </PaperButton>
+    {{ else }}
+      <PaperButton @href="#" @onClick={{action "login"}}>
+        Log In
+      </PaperButton>
+    {{/if}}
+  </PaperToolbarTools>
+</PaperToolbar>

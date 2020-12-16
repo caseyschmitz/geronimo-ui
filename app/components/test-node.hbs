@@ -1,0 +1,15 @@
+<PaperItem class="test-node">
+    <PaperCheckbox @onChange={{null}}></PaperCheckbox>
+    <div class="md-list-item-text">
+        <h3>{{@testnode.name}} (id:{{@testnode.id}})</h3>
+        <h4>URI:{{@testnode.uri}}</h4>
+        <PaperSwitch @value={{@testnode.active}} @onChange={{null}}>
+            {{#if @testnode.active}}    
+                Active
+            {{else}}
+                Inactive
+            {{/if}}
+        </PaperSwitch>
+    </div>
+    <PaperDivider />
+</PaperItem>

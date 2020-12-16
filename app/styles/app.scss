@@ -1,8 +1,15 @@
+@import 'ember-paper';
+@import 'ember-burger-menu';
 @import url(https://fonts.googleapis.com/css?family=Lato:300,300italic,400,700,700italic);
-@import url(https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css);
+//@import url(https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css);
+
+.paper-right {
+    margin-left: auto;
+  }
+
 /**
  * Base Elements
- */
+ 
 
 * {
   margin: 0;
@@ -42,10 +49,11 @@ p {
   line-height: 1.5;
   margin-bottom: 15px;
 }
+*/
 
 /**
  * Button
- */
+ 
 
 .button {
   padding: 10px 30px 10px;
@@ -63,9 +71,11 @@ p {
 .button:hover {
   opacity: 1;
 }
+
+*/
+
 /**
  * Body Container
- */
 
 .container {
   max-width: 1024px;
@@ -73,9 +83,9 @@ p {
   background: #f9f9f9;
   margin: 0 auto;
 }
+ */
 /**
  * Top Navigation
- */
 
 .menu {
   height: 4em;
@@ -182,16 +192,17 @@ p {
 .menu .results li:hover {
   background: #f3f3f3;
 }
+ */
 /**
  * Content Area
- */
+
 
 .body {
   padding: 15px;
 }
+*/
 /**
  * Similar to Jumbotron
- */
 
 .jumbo {
   padding: 50px;
@@ -218,10 +229,9 @@ p {
   top: -25px;
   right: -20px;
 }
-
+*/
 /**
  * Individual Rental Listing
- */
 
 .rental {
   margin-top: 15px;
@@ -296,7 +306,6 @@ p {
   text-align: center;
   color: #016aba;
 
-  /* This is needed to fix a safari clipping issue */
   position: relative;
 }
 
@@ -422,10 +431,9 @@ p {
     margin-top: 25px;
   }
 }
-
+*/
 /**
  * Utilities
- */
 
 .light {
   font-weight: 300;
@@ -465,3 +473,4 @@ p {
   height: 1px; width: 1px;
   margin: -1px; padding: 0; border: 0;
 }
+*/
