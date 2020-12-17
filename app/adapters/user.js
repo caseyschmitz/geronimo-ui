@@ -2,12 +2,14 @@ import JSONAPIAdapter from '@ember-data/adapter/json-api';
 import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
 import { computed } from '@ember/object';
 import { pluralize } from 'ember-inflector';
+import { capitalize } from '@ember/string';
 import { inject as service } from '@ember/service';
+import ApplicationAdapter from 'geronimo/adapters/application';
 import ENV from 'geronimo/config/environment';
 
-export default class ApplicationAdapter extends JSONAPIAdapter {
+export default class UserAdapter extends ApplicationAdapter {
     @service session;
-
+    /*
     @computed
     get host() {
         return ENV.host;
@@ -26,10 +28,11 @@ export default class ApplicationAdapter extends JSONAPIAdapter {
     
         return headers;
       }
+      */
     
     namespace = "api";
 
     pathForType(modelName) {
-        return pluralize(modelName) + '/';
+        return pluralize(modelName) + '/register';
     }
 }

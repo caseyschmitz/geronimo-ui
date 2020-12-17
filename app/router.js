@@ -9,8 +9,9 @@ export default class Router extends EmberRouter {
 Router.map(function() {
   this.route('dashboard');
   this.route('callback');
-  this.route('home');
-  this.route('speedtest');
+  this.route('speed-test');
   this.route('test-node');
   //this.route('test-node', { path: '/test-nodes/:node_id' });
+  this.route('login');
+  this.route('register');
 });

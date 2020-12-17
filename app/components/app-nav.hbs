@@ -1,6 +1,6 @@
 <PaperToolbar>
   <PaperToolbarTools>
-    {{#if auth.user}}
+    {{#if session.isAuthenticated}}
     <PaperMenu as |menu|>
       <menu.trigger>
         <PaperButton @iconButton={{true}}>
@@ -10,6 +10,8 @@
       <menu.content as |content|>
         <content.menu-item @onClick={{action "goHome"}}>Home</content.menu-item>
         <content.menu-item @onClick={{action "goDashboard"}}>Dashboard</content.menu-item>
+        <content.menu-item @onClick={{action "goTestNode"}}>Test Nodes</content.menu-item>
+        <content.menu-item @onClick={{action "goSpeedTest"}}>Speed Tests</content.menu-item>
       </menu.content>
     </PaperMenu>
     {{/if}}
@@ -17,15 +19,19 @@
       Geronimo
     </PaperButton>
     <span class="flex"></span>
-    {{#if auth.user}}
+    {{#if session.isAuthenticated}}
       <PaperButton @iconButton={{true}}>
         {{paper-icon "person"}}
+        <PaperTooltip>{{identification}}</PaperTooltip>
       </PaperButton>
-      <PaperButton @onClick={{action "logout"}}>
+      <PaperButton @onClick={{action invalidateSession}}>
         Log Out
       </PaperButton>
     {{ else }}
-      <PaperButton @href="#" @onClick={{action "login"}}>
+      <PaperButton @onClick={{action (transition-to 'register')}}>
+        Register
+      </PaperButton>
+      <PaperButton @raised={{true}} @onClick={{action (transition-to 'login')}}>
         Log In
       </PaperButton>
     {{/if}}

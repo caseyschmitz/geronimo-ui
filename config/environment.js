@@ -30,6 +30,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.host = 'http://192.168.0.154:8888';
   }
 
   if (environment === 'test') {
@@ -42,11 +43,19 @@ module.exports = function(environment) {
 
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
+    ENV.host = 'http://192.168.0.154:8888';
   }
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
+    ENV.host = 'http://192.168.0.154:8888';
   }
+
+  ENV['ember-simple-auth'] = {
+    authenticationRoute: 'login',
+    routeAfterAuthentication: 'dashboard',
+    routeIfAlreadyAuthenticated: 'dashboard'
+  };
 
   ENV.auth0 = {
     clientId: AUTH_CONFIG.clientId,

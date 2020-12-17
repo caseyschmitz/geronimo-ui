@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
-module('Integration | Component | speedtest', function(hooks) {
+module('Integration | Component | speed-test', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
@@ -16,9 +16,9 @@ module('Integration | Component | speedtest', function(hooks) {
 
     // Template block usage:
     await render(hbs`
-      <Speedtest>
+      <SpeedTest>
         template block text
-      </Speedtest>
+      </SpeedTest>
     `);
 
     assert.equal(this.element.textContent.trim(), 'template block text');

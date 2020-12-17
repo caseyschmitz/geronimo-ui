@@ -1,6 +1,6 @@
 import Model, { attr } from '@ember-data/model';
 
-export default class SpeedtestModel extends Model {
+export default class SpeedTestModel extends Model {
     @attr('number') type;
     @attr('string') owner;
     @attr('string') client;

@@ -1,29 +1,39 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
+import { computed } from '@ember/object';
 
 export default class AppNavComponent extends Component {
     @service router;
-    @service auth;
-    /**
-     * From service/auth, starting the login process
-     */
-    @action login() {
-        this.auth.login();
-    }
+    @service session;
 
+    @computed
+    get currentUser() {
+        console.log(this.get('session'));
+        return this.session.data.authenticated.currentUser;
+    }
+    
+    @action login() {
+        this.get('session').login();
+    }
+    
     @action goHome() {
-        this.router.transitionTo('home');
+        this.router.transitionTo('index');
     }
 
     @action goDashboard() {
         this.router.transitionTo('dashboard');
     }
 
-    /**
-     * From service/auth, removing the saved token from the session.
-     */
-    @action logout() {
-        this.auth.logout()
+    @action goTestNode() {
+        this.router.transitionTo('test-node');
+    }
+
+    @action goSpeedTest() {
+        this.router.transitionTo('speed-test');
+    }
+
+    @action invalidateSession() {
+        this.session.invalidate();
     }
 }
