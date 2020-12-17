@@ -10,8 +10,8 @@ Router.map(function() {
   this.route('dashboard');
   this.route('callback');
   this.route('speed-test');
-  this.route('test-node');
-  //this.route('test-node', { path: '/test-nodes/:node_id' });
+  this.route('speed-test-client');
+  //this.route('speed-test-client', { path: '/speed-test-clients/:node_id' });
   this.route('login');
   this.route('register');
 });

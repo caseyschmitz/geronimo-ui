@@ -1,0 +1,20 @@
+<PaperSidenavContainer>
+    <PaperSidenav @class="md-whiteframe-z2" @name="detail" @position="right" @open={{detailOpen}} @lockedOpen={{false}} @onToggle={{action (mut detailOpen)}}>
+        <PaperToolbar as |toolbar|>
+            <toolbar.tools>Speed Test Client Details</toolbar.tools>
+        </PaperToolbar>
+        <PaperContent @padding={{true}}>
+            <SpeedTestClient @speedtestclient={{this.selectedClient}}/>
+        </PaperContent>
+    </PaperSidenav>
+</PaperSidenavContainer>
+
+<PaperList>
+    <PaperSubheader>Speed Test Clients</PaperSubheader>
+    {{#each this.clientData as |speedtestclient|}}
+        <SpeedTestClient @speedtestclient={{speedtestclient}}/>
+        <PaperSidenavToggle @name="detail" as |detailToggled|>
+            <PaperButton @onClick={{action detailToggled speedtestclient}}>Details</PaperButton>
+        </PaperSidenavToggle>
+    {{/each}}
+</PaperList>

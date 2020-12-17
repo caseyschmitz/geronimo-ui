@@ -1,13 +1,12 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-module('Unit | Model | testnode', function(hooks) {
+module('Unit | Adapter | speed test client', function(hooks) {
   setupTest(hooks);
 
   // Replace this with your real tests.
   test('it exists', function(assert) {
-    let store = this.owner.lookup('service:store');
-    let model = store.createRecord('testnode', {});
-    assert.ok(model);
+    let adapter = this.owner.lookup('adapter:speed-test-client');
+    assert.ok(adapter);
   });
 });

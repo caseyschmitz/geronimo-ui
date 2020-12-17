@@ -1,6 +1,4 @@
 'use strict';
-const AUTH_CONFIG = require('./auth0-variables');
-
 module.exports = function(environment) {
   let ENV = {
     modulePrefix: 'geronimo',
@@ -56,12 +54,6 @@ module.exports = function(environment) {
     routeAfterAuthentication: 'dashboard',
     routeIfAlreadyAuthenticated: 'dashboard'
   };
-
-  ENV.auth0 = {
-    clientId: AUTH_CONFIG.clientId,
-    domain: AUTH_CONFIG.domain,
-    callbackUrl: AUTH_CONFIG.callbackUrl
-  }
 
   return ENV;
 };

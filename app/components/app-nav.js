@@ -25,8 +25,8 @@ export default class AppNavComponent extends Component {
         this.router.transitionTo('dashboard');
     }
 
-    @action goTestNode() {
-        this.router.transitionTo('test-node');
+    @action goSpeedTestClient() {
+        this.router.transitionTo('speed-test-client');
     }
 
     @action goSpeedTest() {
