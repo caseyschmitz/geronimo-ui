@@ -1,0 +1,21 @@
+<PaperList>
+    <PaperSubheader>
+        <div class="layout-row">
+            <h1>Users</h1>
+            <span class="flex"></span>
+            <PaperButton @raised={{true}} @primary={{false}} @onClick={{action "bulkAction" "delete"}}>Delete</PaperButton>
+            <PaperButton @raised={{true}} @primary={{true}} @onClick={{action "closeDialog" "open"}}>New</PaperButton>
+        </div>
+    </PaperSubheader>
+    {{#each this.userData as |u|}}
+        <div class="layout-row">
+            <PaperCheckbox @value={{u.selected}} @onChange={{action (mut u.selected)}}/>
+            <User @user={{u}}/>
+            <span class="flex"></span>
+            <div class="layout-column layout-align-center-center">
+                <PaperButton @raised={{true}} @onClick={{action detailToggled u}}>Edit</PaperButton>
+            </div>
+        </div>
+        <PaperDivider />
+    {{/each}}
+</PaperList>

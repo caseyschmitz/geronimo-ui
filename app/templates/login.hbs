@@ -1,10 +1,7 @@
 <form {{on "submit" this.authenticate}}>
-  <label for="identification">Login</label>
-  <input id='identification' placeholder="Enter Login" value={{this.identification}} {{on "change" this.updateIdentification}}>
+  <label for="username">Login</label>
+  <input id="username" autocomplete="username" placeholder="Enter Login" value={{this.username}} {{on "change" this.updateUsername}}>
   <label for="password">Password</label>
-  <input id='password' type="password" placeholder="Enter Password" value={{this.password}} {{on "change" this.updatePassword}}>
+  <input id="password" autocomplete="current-password" type="password" placeholder="Enter Password" value={{this.password}} {{on "change" this.updatePassword}}>
   <button type="submit">Login</button>
-  {{#if this.errorMessage}}
-    <p>{{this.errorMessage}}</p>
-  {{/if}}
 </form>

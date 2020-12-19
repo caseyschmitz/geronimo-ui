@@ -1,8 +1,10 @@
 <PaperItem class="speed-test-client">
-    <PaperCheckbox @onChange={{null}}></PaperCheckbox>
     <div class="md-list-item-text">
         <h3>{{@speedtestclient.name}} (id:{{@speedtestclient.id}})</h3>
-        <h4>URI:{{@speedtestclient.uri}}</h4>
+        <div class="layout-row">
+            <span>URI: {{@speedtestclient.uri}}</span>
+            <span>Owner: {{@speedtestclient.owner.username}}</span>
+        </div>
         <PaperSwitch @value={{@speedtestclient.active}} @onChange={{null}}>
             {{#if @speedtestclient.active}}    
                 Active
@@ -11,5 +13,4 @@
             {{/if}}
         </PaperSwitch>
     </div>
-    <PaperDivider />
 </PaperItem>

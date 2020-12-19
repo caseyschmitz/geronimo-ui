@@ -1,8 +1,6 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
-import jQuery from 'jquery';
-import ENV from 'geronimo/config/environment';
 
 export default class RegisterController extends Controller {
     @service store;

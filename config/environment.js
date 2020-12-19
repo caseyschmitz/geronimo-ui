@@ -28,7 +28,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.host = 'https://geronimo.robar.io';
+    ENV.host = 'http://127.0.0.1:8000';
   }
 
   if (environment === 'test') {
@@ -53,6 +53,13 @@ module.exports = function(environment) {
     authenticationRoute: 'login',
     routeAfterAuthentication: 'dashboard',
     routeIfAlreadyAuthenticated: 'dashboard'
+  };
+
+  ENV['ember-simple-auth-token'] = {
+    serverTokenEndpoint: ENV.host + '/api/api-auth-token/', // Server endpoint to send authenticate request
+    tokenPropertyName: 'token', // Key in server response that contains the access token
+    authorizationPrefix: 'Token ', // Prefix added to each API request
+    headers: {} // Headers to add to the
   };
 
   return ENV;

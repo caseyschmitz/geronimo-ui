@@ -6,13 +6,8 @@ import { computed } from '@ember/object';
 export default class AppNavComponent extends Component {
     @service router;
     @service session;
+    @service currentUser;
 
-    @computed
-    get currentUser() {
-        console.log(this.get('session'));
-        return this.session.data.authenticated.currentUser;
-    }
-    
     @action login() {
         this.get('session').login();
     }
@@ -31,6 +26,10 @@ export default class AppNavComponent extends Component {
 
     @action goSpeedTest() {
         this.router.transitionTo('speed-test');
+    }
+
+    @action goUser() {
+        this.router.transitionTo('user');
     }
 
     @action invalidateSession() {

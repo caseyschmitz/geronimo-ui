@@ -10,28 +10,22 @@ export default class LoginController extends Controller {
     @action
     async authenticate(e) {
         e.preventDefault();
-        let {identification, password} = this;
+        const credentials = this.getProperties('username', 'password');
+        const authenticator = 'authenticator:token';
 
         try {
-            this.get('session').authenticate(
-                'authenticator:drf-token-authenticator', 
-                identification, 
-                password
-            ).then(() => {
-                this.setProperties({identification: identification})
-            });
+            this.session.authenticate(
+                authenticator, 
+                credentials
+            );
         } catch(error) {
-            this.errorMessage = error.error || error;  
-        }
-
-        if (this.session.isAuthenticated) {
-            console.log('authenticated ' + identification);
+            this.errorMessage = error.error || error;
         }
     }
 
     @action
-    updateIdentification(e) {
-        this.identification = e.target.value;
+    updateUsername(e) {
+        this.username = e.target.value;
     }
 
     @action

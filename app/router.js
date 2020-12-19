@@ -14,4 +14,5 @@ Router.map(function() {
   //this.route('speed-test-client', { path: '/speed-test-clients/:node_id' });
   this.route('login');
   this.route('register');
+  this.route('user');
 });

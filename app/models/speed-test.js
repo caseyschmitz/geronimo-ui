@@ -1,13 +1,13 @@
-import Model, { attr } from '@ember-data/model';
+import Model, { attr, belongsTo } from '@ember-data/model';
 
 export default class SpeedTestModel extends Model {
     @attr('number') type;
-    @attr('string') owner;
-    @attr('string') client;
+    @belongsTo('user') owner;
+    @belongsTo('speed-test-client') client;
     @attr('date') created;
     @attr('date') modified;
     @attr('date') scheduled;
     @attr('date') started;
     @attr('date') completed;
-    @attr('string') result;
+    @belongsTo('speed-test-result') result;
 }

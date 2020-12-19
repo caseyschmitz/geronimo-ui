@@ -1,0 +1,7 @@
+<PaperList>
+    <PaperSubheader>Speed Tests</PaperSubheader>
+</PaperList>
+
+<PaperSelect @placeholder="Assign to a user" @selected={{selectedUser}} @options={{users}} @onChange={{action (mut selectedUser)}} as |user|>
+  {{user.name}}
+</PaperSelect>

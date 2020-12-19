@@ -8,11 +8,4 @@ export default class SpeedTestClientRoute extends Route.extend(AuthenticatedRout
     model() {
         return this.store.findAll('speed-test-client');
     }
-
-    /*
-    model(params) {
-        console.log('getting speed-test-client ' + params.nodeId);
-        return this.store.findRecord('speed-test-client', params.nodeId);
-    }
-    */
 }

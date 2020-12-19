@@ -12,6 +12,9 @@
         <content.menu-item @onClick={{action "goDashboard"}}>Dashboard</content.menu-item>
         <content.menu-item @onClick={{action "goSpeedTestClient"}}>Speed Test Clients</content.menu-item>
         <content.menu-item @onClick={{action "goSpeedTest"}}>Speed Tests</content.menu-item>
+        {{#if currentUser.user.is_superuser}}
+          <content.menu-item @onClick={{action "goUser"}}>Users</content.menu-item>
+        {{/if}}
       </menu.content>
     </PaperMenu>
     {{/if}}
@@ -22,7 +25,7 @@
     {{#if session.isAuthenticated}}
       <PaperButton @iconButton={{true}}>
         {{paper-icon "person"}}
-        <PaperTooltip>{{identification}}</PaperTooltip>
+        <PaperTooltip>{{currentUser.user.username}}</PaperTooltip>
       </PaperButton>
       <PaperButton @onClick={{action invalidateSession}}>
         Log Out

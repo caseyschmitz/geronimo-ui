@@ -10,11 +10,76 @@
 </PaperSidenavContainer>
 
 <PaperList>
-    <PaperSubheader>Speed Test Clients</PaperSubheader>
+    <PaperSubheader>
+        <div class="layout-row">
+            <h1>Speed Test Clients</h1>
+            <span class="flex"></span>
+            <PaperButton @raised={{true}} @primary={{false}} @onClick={{action "bulkAction" "delete"}}>Delete</PaperButton>
+            <PaperButton @raised={{true}} @primary={{true}} @onClick={{action "toggleDialog" "new"}}>New</PaperButton>
+        </div>
+    </PaperSubheader>
     {{#each this.clientData as |speedtestclient|}}
-        <SpeedTestClient @speedtestclient={{speedtestclient}}/>
-        <PaperSidenavToggle @name="detail" as |detailToggled|>
-            <PaperButton @onClick={{action detailToggled speedtestclient}}>Details</PaperButton>
-        </PaperSidenavToggle>
+        <div class="layout-row">
+            <PaperCheckbox @value={{speedtestclient.selected}} @onChange={{action (mut speedtestclient.selected)}}/>
+            <SpeedTestClient @speedtestclient={{speedtestclient}}/>
+            <span class="flex"></span>
+            <div class="layout-column layout-align-center-center">
+                <PaperButton @raised={{true}} @onClick={{action "editDialog" speedtestclient}}>Edit</PaperButton>
+            </div>
+        </div>
+        <PaperDivider />
     {{/each}}
 </PaperList>
+
+{{#if showDialog}}
+<div class="layout-row">
+  <PaperDialog @class="flex-30" @onClose={{action "toggleDialog" "cancel"}} @origin={{dialogOrigin}} @clickOutsideToClose={{true}}>
+    <PaperToolbar>
+        <PaperToolbarTools>
+            <h2>Speed Test Client Details
+                {{#if client_id}}
+                    (id: {{client_id}})
+                {{/if}}
+            </h2>
+            <span class="flex"></span>
+            <PaperButton @iconButton={{true}} @onClick={{action "toggleDialog" "cancel"}}><PaperIcon @icon="close" /></PaperButton>
+        </PaperToolbarTools>
+    </PaperToolbar>
+
+    <PaperDialogContent>
+        <PaperContent @padding={{true}}>
+            <PaperForm @onSubmit={{action "submitSpeedTestClient"}} as |form|>
+                <div class="layout-row">
+                    <div class="layout-column">
+                        <form.input @label="Name" @value={{name}} @onChange={{action (mut name)}} @required={{true}}/>
+                        <form.input @label="URI" @value={{uri}} @onChange={{action (mut uri)}} @required={{true}} @customValidations={{URLValidation}}/>
+                        <form.input @label="Active" @type="checkbox" @value={{active}} @onChange={{action (mut active)}}/>
+                    </div>
+                </div>
+                <div class="layout-row layout-align-end-center">
+                    <PaperButton @raised={{true}} @onClick={{action "toggleDialog" "cancel"}}>Cancel</PaperButton>
+                    <form.submit-button @raised={{true}} @primary={{true}} @diabled={{form.isInvalid}}>Submit</form.submit-button>
+                </div>
+            </PaperForm>
+        </PaperContent>
+    </PaperDialogContent>
+
+    <!--
+    <PaperDialogActions @class="layout-row">
+      <span class="flex"></span>
+      <PaperButton @onClick={{action "toggleDialog" "cancel"}}>Cancel</PaperButton>
+      <PaperButton @onClick={{action "toggleDialog" "ok"}}>OK</PaperButton>
+    </PaperDialogActions>
+    -->
+  </PaperDialog>
+</div>
+{{/if}}
+
+{{#if errorMessage}}
+<PaperToast @position={{"top right"}} @escapeToClose={{true}} @onClose={{action "closeToast"}} as |toast|>
+    <toast.text>{{errorMessage}}</toast.text>
+    <!--
+    <PaperButton @accent={{true}} @onClick={{action "buttonAction"}}>Undo</PaperButton>
+    -->
+</PaperToast>
+{{/if}}

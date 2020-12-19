@@ -1,0 +1,16 @@
+<PaperItem class="speed-test-client">
+    <div class="md-list-item-text">
+        <h3>{{@user.username}} (id:{{@user.id}})</h3>
+        <div class="layout-row">
+            <span>Email: {{@user.email}}</span>
+            <span>Last Login: {{@user.last_login}}</span>
+        </div>
+        <PaperSwitch @value={{@user.is_active}} @onChange={{null}}>
+            {{#if @user.is_active}}    
+                Active
+            {{else}}
+                Inactive
+            {{/if}}
+        </PaperSwitch>
+    </div>
+</PaperItem>
