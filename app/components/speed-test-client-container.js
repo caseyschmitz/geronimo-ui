@@ -8,22 +8,19 @@ export default class SpeedTestClientContainerComponent extends Component {
     @service store;
     
     @tracked errorMessage;
-    @tracked selectedClient = null;
-    @tracked showDialog;
+    @tracked showForm;
 
     @tracked client_id;
+    /*
     @tracked name;
     @tracked uri;
     @tracked active;
+    */
+    @tracked formData = {};
 
     @computed
     get clientData() {
         return this.args.data;
-    }
-
-    @computed
-    get selectedClient() {
-        return this.selectedClient;
     }
 
     @action
@@ -44,38 +41,68 @@ export default class SpeedTestClientContainerComponent extends Component {
 
     @action
     submitSpeedTestClient(data) {
-        this.store.createRecord('speed-test-client', {
-            name: this.name,
-            uri: this.uri,
-            active: this.active
-        }).save().then(() => {
-            this.name = null;
-            this.uri = null;
-            this.active = false;
-        this.toggleDialog('submitted');
-        }, reason => {
-            this.errorMessage = reason.errors[0].detail;
-        });
+        // same handler for POST and PATCH
+        if (this.client_id) {
+            console.log('should be updating');
+            console.log(this.client_id);
+            this.updateSpeedTestClient();
+        } else {
+            this.store.createRecord('speed-test-client', this.formData).save().then(
+                (client) => {
+                   // consider creating a toast
+                   this.formData = {};
+            this.toggleForm('submitted');
+            }, reason => {
+                this.errorMessage = reason.errors[0].detail;
+            });
+        }
+    }
+
+    updateSpeedTestClient() {
+        // PATCH handler
+        if (this.client_id) {
+            console.log('updating ' + this.client_id);
+        }
+        this.store.findRecord('speed-test-client', this.client_id).then(
+            (client) => {
+                client.name = this.formData.name;
+                client.uri = this.formData.uri;
+                client.active = this.formData.active;
+                client.save().then(
+                    () => {
+                        // consider creating a toast
+                        this.client_id = null;
+                        this.formData = {};
+                        this.toggleForm('submitted');
+                    }, reason => {
+                        this.errorMessage = reason.errors[0].detail;
+                    }
+                );
+            }, reason => {
+                this.errorMessage = reason.errors[0].detail;
+            }
+        );
     }
 
     @action
-    updateSpeedTestClient(client) {
-        if (this.client_id) {
-            console.log('should be updating');
+    toggleForm(arg) {
+        console.log('toggling dialog with ' + arg);
+        if (arg != "edit") { 
+            this.client_id = null;
+            this.formData = {};
         }
-        // need to check for error before saving
-        this.store.findRecord('speed-test-client', {
-            name: this.name,
-            uri: this.uri,
-            active: this.active
-        }).save().then(() => {
-            this.name = null;
-            this.uri = null;
-            this.active = false;
-        this.toggleDialog('submitted');
-        }, reason => {
-            this.errorMessage = reason.errors[0].detail;
-        });
+        this.showForm = !this.showForm;
+    }
+
+    @action
+    editDialog(client) {
+        console.log(client);
+        
+        this.client_id = client.id;
+        this.formData.name = client.name;
+        this.formData.uri = client.uri;
+        this.formData.active = client.active;
+        this.toggleForm('edit');
     }
 
     @action
@@ -83,38 +110,8 @@ export default class SpeedTestClientContainerComponent extends Component {
         this.errorMessage = null;
     }
 
-    @action
-    toggleDialog(arg) {
-        console.log('toggling dialog with ' + arg);
-        if (arg != "edit") { 
-            this.clientId = null;
-            this.name = null;
-            this.uri = null;
-            this.active = null;
-        }
-        this.showDialog = !this.showDialog;
-    }
-
-    @action
-    editDialog(client) {
-        console.log(client);
-        this.name = client.name;
-        this.uri = client.uri;
-        this.active = client.active;
-        this.client_id = client.id;
-        this.toggleDialog('edit');
-    }
-
-    @action
-    detailToggled(client) {
-        console.log(client);
-        console.log('detail toggled for client ' + client.id);
-        this.selectedClient = this.store.peekRecord('speed-test-client', client.id);
-        console.log(this.selectedClient);
-    }
-
     NameValidation = [{
-        message: "Please enter valid URL.",
+        message: "Please enter valid Name.",
         validate: (input) => {
             return (input.length > 3 && input.length <= 128);
         }
