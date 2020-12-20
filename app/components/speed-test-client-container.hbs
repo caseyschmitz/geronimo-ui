@@ -23,7 +23,7 @@
 
     {{#if showForm}}
     <div class="layout-row">
-    <PaperDialog @class="flex-30" @onClose={{action "toggleForm" "cancel"}} @origin={{dialogOrigin}} @clickOutsideToClose={{true}}>
+    <PaperDialog @class="flex-30" @onClose={{action "toggleForm" "cancel"}} @clickOutsideToClose={{true}}>
         <PaperToolbar>
             <PaperToolbarTools>
                 <h2>Speed Test Client
@@ -41,7 +41,7 @@
                 <PaperForm @onSubmit={{action "submitSpeedTestClient"}} as |form|>
                     <div class="layout-row">
                         <div class="layout-column">
-                            <form.input @label="Name" @value={{formData.name}} @onChange={{action (mut formData.name)}} @required={{true}}/>
+                            <form.input @label="Name" @value={{formData.name}} @onChange={{action (mut formData.name)}} @required={{true}} @minlength="4" @maxlength="128"/>
                             <form.input @label="URI" @value={{formData.uri}} @onChange={{action (mut formData.uri)}} @required={{true}} @customValidations={{URLValidation}}/>
                             <PaperCheckbox @label="Active" @value={{formData.active}} @onChange={{action (mut formData.active)}}/>
                         </div>

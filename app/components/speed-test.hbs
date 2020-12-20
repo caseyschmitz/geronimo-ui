@@ -1,1 +1,16 @@
-{{yield}}
+<PaperItem>
+    <div class="md-list-item-text">
+        <h3>{{@test.testname}} (id:{{@test.id}})</h3>
+        <div class="layout-row">
+            <span>Type: {{@test.type}}</span>
+            <span>Owner: {{@test.owner}}</span>
+        </div>
+        <PaperSwitch @value={{@test.completed}} @onChange={{null}}>
+            {{#if @test.completed}}    
+                Complete
+            {{else}}
+                Not Complete
+            {{/if}}
+        </PaperSwitch>
+    </div>
+</PaperItem>

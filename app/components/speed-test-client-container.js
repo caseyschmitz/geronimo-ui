@@ -8,14 +8,9 @@ export default class SpeedTestClientContainerComponent extends Component {
     @service store;
     
     @tracked errorMessage;
-    @tracked showForm;
+    @tracked showForm = false;
 
     @tracked client_id;
-    /*
-    @tracked name;
-    @tracked uri;
-    @tracked active;
-    */
     @tracked formData = {};
 
     @computed
@@ -91,12 +86,16 @@ export default class SpeedTestClientContainerComponent extends Component {
             this.client_id = null;
             this.formData = {};
         }
+        console.log('about to toggle')
+        console.log('client_id is ' + this.client_id)
+        console.log(this.formData)
         this.showForm = !this.showForm;
     }
 
     @action
     editDialog(client) {
         console.log(client);
+        console.log(client.id);
         
         this.client_id = client.id;
         this.formData.name = client.name;
@@ -110,17 +109,10 @@ export default class SpeedTestClientContainerComponent extends Component {
         this.errorMessage = null;
     }
 
-    NameValidation = [{
-        message: "Please enter valid Name.",
-        validate: (input) => {
-            return (input.length > 3 && input.length <= 128);
-        }
-    }]
-
     URLValidation = [{
         message: "Please enter valid URL.",
         validate: (input) => {
-            let urlpattern = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+            let urlpattern = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
             return urlpattern.test(input);
         }
     }]

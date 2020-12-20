@@ -1,0 +1,16 @@
+<PaperContent @padding={{true}}>
+  <PaperForm @onSubmit={{action "authenticate"}} as |form|>
+    <div class="layout-row">
+      <div class="layout-column">
+        <form.input autocomplete="username" @label="User Name" @placeholder="Enter User Name" @value={{username}} @onChange={{action (mut username)}} @requried={{true}}/>
+        <form.input autocomplete="current-password" @label="Password" @type="password" @value={{password}} @onChange={{action (mut password)}} @requried={{true}}/>
+      </div>
+    </div>
+    <div class="layout-row layout-align-end-center">
+      <form.submit-button @raised={{true}} @primary={{true}} @diabled={{form.isInvalid}}>Login</form.submit-button>
+    </div>
+    {{#if error}}
+    <p>{{error}}</p>
+    {{/if}}
+  </PaperForm>
+</PaperContent>

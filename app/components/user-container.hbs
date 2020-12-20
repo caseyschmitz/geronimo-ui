@@ -1,21 +1,79 @@
-<PaperList>
-    <PaperSubheader>
-        <div class="layout-row">
-            <h1>Users</h1>
-            <span class="flex"></span>
-            <PaperButton @raised={{true}} @primary={{false}} @onClick={{action "bulkAction" "delete"}}>Delete</PaperButton>
-            <PaperButton @raised={{true}} @primary={{true}} @onClick={{action "closeDialog" "open"}}>New</PaperButton>
-        </div>
-    </PaperSubheader>
-    {{#each this.userData as |u|}}
-        <div class="layout-row">
-            <PaperCheckbox @value={{u.selected}} @onChange={{action (mut u.selected)}}/>
-            <User @user={{u}}/>
-            <span class="flex"></span>
-            <div class="layout-column layout-align-center-center">
-                <PaperButton @raised={{true}} @onClick={{action detailToggled u}}>Edit</PaperButton>
+<div class="inner-container">
+    <PaperList>
+        <PaperSubheader>
+            <div class="layout-row">
+                <h1>Users</h1>
+                <span class="flex"></span>
+                <PaperButton @raised={{true}} @primary={{false}} @onClick={{action "bulkAction" "delete"}}>Delete</PaperButton>
+                <PaperButton @raised={{true}} @primary={{true}} @onClick={{action "toggleDialog" "open"}}>New</PaperButton>
             </div>
-        </div>
-        <PaperDivider />
-    {{/each}}
-</PaperList>
+        </PaperSubheader>
+        {{#each this.userData as |u|}}
+            <div class="layout-row">
+                <PaperCheckbox @value={{u.selected}} @onChange={{action (mut u.selected)}}/>
+                <User @user={{u}}/>
+                <span class="flex"></span>
+                <div class="layout-column layout-align-center-center">
+                    <PaperButton @raised={{true}} @onClick={{action editForm u}}>Edit</PaperButton>
+                </div>
+            </div>
+            <PaperDivider />
+        {{/each}}
+    </PaperList>
+
+{{#if showForm}}
+    <div class="layout-row">
+        <PaperDialog @class="flex-30" @onClose={{action "toggleForm" "cancel"}} @origin={{dialogOrigin}} @clickOutsideToClose={{true}}>
+            <PaperToolbar>
+                <PaperToolbarTools>
+                    <h2>User
+                        {{#if user_id}}
+                            (id: {{user_id}})
+                        {{/if}}
+                    </h2>
+                    <span class="flex"></span>
+                    <PaperButton @iconButton={{true}} @onClick={{action "toggleForm" "cancel"}}><PaperIcon @icon="close" /></PaperButton>
+                </PaperToolbarTools>
+            </PaperToolbar>
+
+            <PaperDialogContent>
+                <PaperContent @padding={{true}}>
+                    <PaperForm @onSubmit={{action "submitForm"}} as |form|>
+                        <div class="layout-row">
+                            <div class="layout-column">
+                                {{#unless user_id}}
+                                    <form.input autocomplete="username" @label="User Name" @placeholder="Enter User Name" @value={{formData.username}} @onChange={{action (mut formData.username)}} @requried={{true}} @customValidations={{UserNameValidation}}/>
+                                {{/unless}}
+                                <div class="layout-row">
+                                    <form.input @label="First Name" @placeholder="Enter First Name" @value={{formData.first_name}} @onChange={{action (mut formData.first_name)}} @requried={{true}}/>
+                                    <form.input @label="Last Name" @placeholder="Enter Last Name" @value={{formData.last_name}} @onChange={{action (mut formData.last_name)}} @requried={{true}}/>
+                                </div>
+                                <form.input @label="Email" @type="email" @value={{formData.email}} @onChange={{action (mut formData.email)}} @requried={{true}}/>
+                                <form.input autocomplete="new-password" @label="Password" @type="password" @value={{formData.password}} @onChange={{action (mut formData.password)}} @requried={{true}}/>
+                                <form.input autocomplete="new-password" @label="Confirm Password" @type="password" @value={{formData.confirm_password}} @onChange={{action (mut formData.confirm_password)}} @requried={{true}} @customValidations={{PasswordMatchValidation}}/>
+                                {{#if user_id}}
+                                <PaperCheckbox @label="Active" @value={{formData.active}} @onChange={{action (mut formData.active)}}/>
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div class="layout-row layout-align-end-center">
+                            <PaperButton @raised={{true}} @onClick={{action "toggleForm" "cancel"}}>Cancel</PaperButton>
+                            <form.submit-button @raised={{true}} @primary={{true}} @diabled={{form.isInvalid}}>Submit</form.submit-button>
+                        </div>
+                    </PaperForm>
+                </PaperContent>
+            </PaperDialogContent>
+        </PaperDialog>
+    </div>
+    {{/if}}
+
+    {{#if errorMessage}}
+    <PaperToast @position={{"top right"}} @escapeToClose={{true}} @onClose={{action "closeToast"}} as |toast|>
+        <toast.text>{{errorMessage}}</toast.text>
+        <!--
+        <PaperButton @accent={{true}} @onClick={{action "buttonAction"}}>Undo</PaperButton>
+        -->
+    </PaperToast>
+    {{/if}}
+
+</div>

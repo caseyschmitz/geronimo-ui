@@ -1,0 +1,22 @@
+<PaperContent @padding={{true}}>
+  <PaperForm @onSubmit={{action "register"}} as |form|>
+    <div class="layout-row">
+      <div class="layout-column">
+        <form.input autocomplete="username" @label="User Name" @placeholder="Enter User Name" @value={{user.username}} @onChange={{action (mut user.username)}} @requried={{true}} @customValidations={{UserNameValidation}}/>
+        <div class="layout-row">
+          <form.input @label="First Name" @placeholder="Enter First Name" @value={{user.first_name}} @onChange={{action (mut user.first_name)}} @requried={{true}}/>
+          <form.input @label="Last Name" @placeholder="Enter Last Name" @value={{user.last_name}} @onChange={{action (mut user.last_name)}} @requried={{true}}/>
+        </div>
+        <form.input @label="Email" @type="email" @value={{user.email}} @onChange={{action (mut user.email)}} @requried={{true}}/>
+        <form.input autocomplete="new-password" @label="Password" @type="password" @value={{user.password}} @onChange={{action (mut user.password)}} @requried={{true}}/>
+        <form.input autocomplete="new-password" @label="Confirm Password" @type="password" @value={{user.confirm_password}} @onChange={{action (mut user.confirm_password)}} @requried={{true}} @customValidations={{PasswordMatchValidation}}/>
+      </div>
+    </div>
+    <div class="layout-row layout-align-end-center">
+      <form.submit-button @raised={{true}} @primary={{true}} @diabled={{form.isInvalid}}>Sign Up</form.submit-button>
+    </div>
+    {{#if error}}
+    <p>{{error}}</p>
+    {{/if}}
+  </PaperForm>
+</PaperContent>

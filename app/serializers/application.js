@@ -1,5 +1,5 @@
 import JSONAPISerializer from '@ember-data/serializer/json-api';
-import { classify } from '@ember/string';
+import { classify, underscore, dasherize } from '@ember/string';
 
 export default class ApplicationSerializer extends JSONAPISerializer {
     // take field names as returned from api, rather than with dashes
@@ -15,4 +15,17 @@ export default class ApplicationSerializer extends JSONAPISerializer {
         json.data.type = classify(json.data.type);
         return json;
     }
+
+    /*
+      payloadKeyFromModelName(modelName) {
+        console.log('model: ' + modelName);
+        if (modelName === 'speed-test-client') {
+          return 'SpeedTestClients';
+        } else if (modelName === 'user') {
+            return 'Users';
+        } else {
+          return super.payloadKeyFromModelName(modelName);
+        }
+      }
+      */
 }
